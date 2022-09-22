@@ -14,8 +14,11 @@ private:
 	Cooldown cd, timetolive, animantioncooldown;
 	std::shared_ptr<Graphics> mdisp;
 	short skilltype;
+	short direction;
 
-	Skill() { skilltype = 0; }
+	Skill() {
+		skilltype = 0; direction = left;
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	//Movement managment			
@@ -33,7 +36,7 @@ private:
 
 public:
 
-	Skill(AABB range, double cooldown, std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<sf::Texture> txt, std::shared_ptr<Object> o = nullptr);
+	Skill(Point Point_of_creation, double cooldown, std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<sf::Texture> txt, short direction, std::shared_ptr<Object> o = nullptr);
 
 	void isTimeToDie();
 	////////////////////////////////////////////////////////////////////////////////////////
@@ -69,7 +72,7 @@ public:
 
 	std::shared_ptr<Object> returnowner();
 
-	void action() {};
+	void action();
 
 	~Skill();
 };

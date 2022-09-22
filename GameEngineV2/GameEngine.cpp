@@ -37,7 +37,7 @@ void GameEngine::GameLoop()
 {
 	frameClock.restart();
 	std::vector<std::shared_ptr<Object>>* mst;
-	mst = Factory::callobjectList();
+	mst = Factory::callObjectList();
 	//window->setFramerateLimit(60);
 
 	LoadFromFile("Map.txt");
@@ -204,7 +204,7 @@ void GameEngine::EventLoop()
 	while (window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed) {
-			Factory::destorylist();
+			Factory::destoryList();
 			window->close();
 		}
 		if (event.type == sf::Event::KeyPressed) {
@@ -238,7 +238,7 @@ void GameEngine::EventLoop()
 		theme.pause();
 		sf::Vector2i mpos = sf::Mouse::getPosition();
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && mpos.x < window->getPosition().x + 1080 && mpos.x > window->getPosition().x + 830 && mpos.y < window->getPosition().y + 560 && mpos.y > window->getPosition().y + 450) {
-			Factory::destorylist();
+			Factory::destoryList();
 			GameOver = false;
 			//LoadFromSaveGame();
 			theme.play();
@@ -333,7 +333,7 @@ void GameEngine::LoadFromFile(std::string filename)
 			break;
 		case sttc:
 			Factory::SetUpStatic::SetUpStaticObject(ac[0], ac[1], ac[2], ac[3], window, "steel.png");
-			Factory::CreatestaticObject();
+			Factory::CreateStaticObject();
 			break;
 		case mnstr:
 			Factory::SetUpMstr::SetUpMonster(ac[0], ac[1], ac[2], ac[3], 100, 5, 5, window);

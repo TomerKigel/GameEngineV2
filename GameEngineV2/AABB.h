@@ -41,7 +41,7 @@ public:
 	AABB(Point tl, Point br);
 
 	//accessor - return the value center of the AABB
-	Point getCenter();
+	std::shared_ptr<Point>  getCenter();
 
 	//accessor - return the value of the length
 	int GetLen();

@@ -38,7 +38,7 @@ Player::Player(AABB range, double hp, double ad, double spd, std::shared_ptr<sf:
 	jumpcooldown.SetTimerMaxAsSeconds(0.5);
 	invulnerable.SetTimerMaxAsSeconds(1);
 	playerview.setSize(1980, 1080);
-	playerview.setCenter(space.getCenter().GetX(), space.getCenter().GetY());
+	playerview.setCenter(space.getCenter()->GetX(), space.getCenter()->GetY());
 	zm = 1;
 }
 
@@ -197,7 +197,12 @@ void Player::Controls()
 			s = Factory::CreateSound();
 			attacksound.setBuffer(s->reSfx()->at(0).sbuf);
 			attacksound.play();
-			Factory::SetUpsk::SetUpSkill(&space, mdisp->rewin(), "swash.png", shared_from_this());
+			Point SkillSetUp = *space.getCenter().get();
+			if (ps.looking_state == left)
+				SkillSetUp.SetX(SkillSetUp.GetX() - 40);
+			else
+				SkillSetUp.SetX(SkillSetUp.GetX() + 40);
+			Factory::SetUpsk::SetUpSkill(SkillSetUp, mdisp->rewin(), "swash.png", shared_from_this(), ps.looking_state);
 			Factory::CreateSkill();
 			attspd.resetTimer();
 		}
@@ -230,21 +235,21 @@ void Player::Controls()
 	/*if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
 		sf::Vector2i mpos = sf::Mouse::getPosition();
-		double tx = mpos.x - space.getCenter().GetX();
-		double ty = mpos.y - space.getCenter().GetY();
+		double tx = mpos.x - space.getCenter()->GetX();
+		double ty = mpos.y - space.getCenter()->GetY();
 		double nt = std::atan(ty / tx) * 180 / PI;
 		//double nt = tx / (sqrt(tx + ty) * sqrt(tx));
 		//nt = std::acos(nt) * 180 / PI;
-		if (mpos.x - space.getCenter().GetX() > 0) {
+		if (mpos.x - space.getCenter()->GetX() > 0) {
 			//Accelerate(0.15 * cos((nt)* PI / 180.0), 0.15 * sin((nt)* PI / 180.0));
 			//Move(15 * cos((nt)* PI / 180.0), 15 * sin((nt)* PI / 180.0));
 		}
-		if (mpos.x - space.getCenter().GetX() < 0 && mpos.y - space.getCenter().GetY() < 0)
+		if (mpos.x - space.getCenter()->GetX() < 0 && mpos.y - space.getCenter()->GetY() < 0)
 		{
 			//Accelerate(0.15 * cos((nt - 180)* PI / 180.0), 0.15 * sin((nt - 180)* PI / 180.0));
 			//Move(15 * cos((nt-180)* PI / 180.0), 15 * sin((nt-180)* PI / 180.0));
 		}
-		if (mpos.x - space.getCenter().GetX() < 0 && mpos.y - space.getCenter().GetY() > 0)
+		if (mpos.x - space.getCenter()->GetX() < 0 && mpos.y - space.getCenter()->GetY() > 0)
 		{
 			//Accelerate(0.15 * cos((nt + 180)* PI / 180.0), 0.15 * sin((nt + 180)* PI / 180.0));
 			//Move(15 * cos((180 + nt)* PI / 180.0), 15 * sin((180 + nt)* PI / 180.0));
@@ -307,13 +312,13 @@ void Player::PViewAdjustLoop(double xspd, double yspd)
 {
 	auto fxspd = static_cast<float>(xspd);
 	auto fyspd = static_cast<float>(yspd);
-	if (space.getCenter().GetX() > mdisp->rewin()->getView().getCenter().x + 500)
+	if (space.getCenter()->GetX() > mdisp->rewin()->getView().getCenter().x + 500)
 		playerview.move(fxspd, 0);
-	else if (space.getCenter().GetX() < mdisp->rewin()->getView().getCenter().x - 500)
+	else if (space.getCenter()->GetX() < mdisp->rewin()->getView().getCenter().x - 500)
 		playerview.move(fxspd, 0);
-	if (space.getCenter().GetY() > mdisp->rewin()->getView().getCenter().y + 400)
+	if (space.getCenter()->GetY() > mdisp->rewin()->getView().getCenter().y + 400)
 		playerview.move(0, fyspd);
-	else if (space.getCenter().GetY() < mdisp->rewin()->getView().getCenter().y - 400)
+	else if (space.getCenter()->GetY() < mdisp->rewin()->getView().getCenter().y - 400)
 		playerview.move(0, fyspd);
 	mdisp->rewin()->setView(playerview);
 }
@@ -342,7 +347,7 @@ void Player::action()
 	ph.calcSpeed();
 	Point spd = ph.reSpeed();
 	PhysicsInit();
-	sf::Vector2f pos(getCenter().GetX(), getCenter().GetY());
+	sf::Vector2f pos(getCenter()->GetX(), getCenter()->GetY());
 	refreshgraphics(pos);
 }
 

@@ -2,51 +2,49 @@
 #include "Factory.h"
 #include <SFML\Graphics.hpp>
 
-MonsterParameters Factory::mparam;
-YetiParameters Factory::yetiparam;
-BatParameters Factory::btparam;
-PlayerParameters Factory::pparam;
-StaticParameters Factory::sparam;
-ItemParameters Factory::iparam;
-SkillParameters Factory::skparam;
+MonsterParameters Factory::Monster_Parameters;
+BatParameters Factory::Bat_Parameters;
+PlayerParameters Factory::Player_Parameters;
+StaticParameters Factory::StaticObject_Parameters;
+ItemParameters Factory::Item_Parameters;
+SkillParameters Factory::Skill_Parameters;
 
-std::vector<std::shared_ptr<Object>> Factory::list;
+std::vector<std::shared_ptr<Object>> Factory::Object_List;
 static std::shared_ptr<Sound> tpl = nullptr;
-//static std::shared_ptr<Textures> tpga = nullptr;
 static std::shared_ptr<Player> isalive = nullptr;
 static std::shared_ptr<Textures> GameAssets = nullptr;
 
-std::vector<std::shared_ptr<Object>>* Factory::callobjectList()
+std::vector<std::shared_ptr<Object>>* Factory::callObjectList()
 {
-	return &list;
+	return &Object_List;
 }
 
-void Factory::destorylist()
+void Factory::destoryList()
 {
-	list.clear();
+	Object_List.clear();
 }
 
 void Factory::destoryObject(int i)
 {
-	list.erase(list.begin() + i);
-	list.shrink_to_fit();
+	Object_List.erase(Object_List.begin() + i);
+	Object_List.shrink_to_fit();
 }
 
 std::shared_ptr<Monster> Factory::CreateMonster(std::string mname)
 {
 	if (mname == "Monster") {
-		std::shared_ptr<Monster> tm = std::make_shared<Monster>(mparam.range, mparam.hp, mparam.ad, mparam.speed, mparam.window, nullptr);
-		list.push_back(tm);
+		std::shared_ptr<Monster> tm = std::make_shared<Monster>(Monster_Parameters.range, Monster_Parameters.hp, Monster_Parameters.ad, Monster_Parameters.speed, Monster_Parameters.window, nullptr);
+		Object_List.push_back(tm);
 		return tm;
 	}
 	else if (mname == "Yeti") {
-		std::shared_ptr<Yeti> tm = std::make_shared<Yeti>(yetiparam.speed, mparam.range, mparam.hp, mparam.ad, mparam.speed, mparam.window, yetiparam.texture);
-		list.push_back(tm);
+		std::shared_ptr<Yeti> tm = std::make_shared<Yeti>(Monster_Parameters.speed, Monster_Parameters.range, Monster_Parameters.hp, Monster_Parameters.ad, Monster_Parameters.speed, Monster_Parameters.window, Monster_Parameters.texture);
+		Object_List.push_back(tm);
 		return tm;
 	}
 	else if (mname == "Bat") { 
-		std::shared_ptr<Bat> tm = std::make_shared<Bat>(btparam.optimalhight, btparam.speed, mparam.range, mparam.hp, mparam.ad, mparam.speed, mparam.window, btparam.texture);
-		list.push_back(tm);
+		std::shared_ptr<Bat> tm = std::make_shared<Bat>(Bat_Parameters.optimalhight, Monster_Parameters.speed, Monster_Parameters.range, Monster_Parameters.hp, Monster_Parameters.ad, Monster_Parameters.speed, Monster_Parameters.window, Monster_Parameters.texture);
+		Object_List.push_back(tm);
 		return tm;
 	}
 	else
@@ -57,31 +55,31 @@ std::shared_ptr<Monster> Factory::CreateMonster(std::string mname)
 
 std::shared_ptr<Player> Factory::CreatePlayer()
 {
-	std::shared_ptr<Player> tpl = std::make_shared<Player>(pparam.range, pparam.hp, pparam.ad, pparam.speed, pparam.window, pparam.texture);
-	list.push_back(tpl);
+	std::shared_ptr<Player> tpl = std::make_shared<Player>(Player_Parameters.range, Player_Parameters.hp, Player_Parameters.ad, Player_Parameters.speed, Player_Parameters.window, Player_Parameters.texture);
+	Object_List.push_back(tpl);
 	return tpl;
 }
 
-std::shared_ptr<StaticObject> Factory::CreatestaticObject()
+std::shared_ptr<StaticObject> Factory::CreateStaticObject()
 {
-	std::shared_ptr<StaticObject> ts = std::make_shared<StaticObject>(sparam.range, sparam.window, sparam.texture);
-	list.push_back(ts);
+	std::shared_ptr<StaticObject> ts = std::make_shared<StaticObject>(StaticObject_Parameters.range, StaticObject_Parameters.window, StaticObject_Parameters.texture);
+	Object_List.push_back(ts);
 	return ts;
 }
 
 std::shared_ptr<Item> Factory::CreateItem()
 {
-	std::shared_ptr<Item> tit = std::make_shared<Item>(iparam.range, iparam.window, iparam.texture);
+	std::shared_ptr<Item> tit = std::make_shared<Item>(Item_Parameters.range, Item_Parameters.window, Item_Parameters.texture);
 
-	list.push_back(tit);
+	Object_List.push_back(tit);
 	return tit;
 }
 
 std::shared_ptr<Skill> Factory::CreateSkill()
 {
-	std::shared_ptr<Skill> s = std::make_shared<Skill>(skparam.range, 0, skparam.window, skparam.texture, skparam.ownr);
+	std::shared_ptr<Skill> s = std::make_shared<Skill>(Skill_Parameters.Point_of_creation, 0, Skill_Parameters.window, Skill_Parameters.texture, Skill_Parameters.direction, Skill_Parameters.ownr);
 
-	list.push_back(s);
+	Object_List.push_back(s);
 	return s;
 }
 
@@ -106,178 +104,181 @@ std::shared_ptr<Textures> Factory::CreatGameAssets()
 
 void Factory::SetUpMstr::SetUpMonster(double tlx, double tly, double brx, double bry, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window)
 {
-	mparam.range(tlx, tly, brx, bry);
-	mparam.mhp = mparam.hp = hp;
-	mparam.ad = ad;
-	mparam.window = window;
-	mparam.speed = spd;
+	Monster_Parameters.range(tlx, tly, brx, bry);
+	Monster_Parameters.mhp = Monster_Parameters.hp = hp;
+	Monster_Parameters.ad = ad;
+	Monster_Parameters.window = window;
+	Monster_Parameters.speed = spd;
 }
 
-void Factory::SetUpMstr::SetUpMonster(Point* Tl, Point* Br, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window)
+void Factory::SetUpMstr::SetUpMonster(Point Tl, Point Br, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window)
 {
-	mparam.range(*Tl, *Br);
-	mparam.hp = hp;
-	mparam.ad = ad;
-	mparam.window = window;
-	mparam.speed = spd;
+	Monster_Parameters.range(Tl, Br);
+	Monster_Parameters.hp = hp;
+	Monster_Parameters.ad = ad;
+	Monster_Parameters.window = window;
+	Monster_Parameters.speed = spd;
 }
 
-void Factory::SetUpMstr::SetUpMonster(AABB* range, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window)
+void Factory::SetUpMstr::SetUpMonster(AABB range, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window)
 {
-	mparam.range = *range;
-	mparam.hp = hp;
-	mparam.ad = ad;
-	mparam.window = window;
-	mparam.speed = spd;
+	Monster_Parameters.range = range;
+	Monster_Parameters.hp = hp;
+	Monster_Parameters.ad = ad;
+	Monster_Parameters.window = window;
+	Monster_Parameters.speed = spd;
 }
 
 void Factory::SetUpMstr::SetUpYeti(double spd, std::string filename)
 {
-	yetiparam.speed = spd;
+	Monster_Parameters.speed = spd;
 	if (filename != "")
 	{
-		yetiparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		Monster_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
 void Factory::SetUpMstr::SetUpBat(double optimalhight, double spd, std::string filename)
 {
-	btparam.optimalhight = optimalhight;
-	btparam.speed = spd;
+	Bat_Parameters.optimalhight = optimalhight;
+	Monster_Parameters.speed = spd;
 	if (filename != "")
 	{
-		btparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		Monster_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
 void Factory::SetUpPlyr::SetUpPlayer(double tlx, double tly, double brx, double bry, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window, std::string filename)
 {
-	pparam.range(tlx, tly, brx, bry);
-	pparam.mhp = pparam.hp = hp;
-	pparam.ad = ad;
-	pparam.window = window;
-	pparam.speed = spd;
+	Player_Parameters.range(tlx, tly, brx, bry);
+	Player_Parameters.mhp = Player_Parameters.hp = hp;
+	Player_Parameters.ad = ad;
+	Player_Parameters.window = window;
+	Player_Parameters.speed = spd;
 	if (filename != "")
 	{
-		pparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		Player_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
-void Factory::SetUpPlyr::SetUpPlayer(Point* Tl, Point* Br, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window, std::string filename)
+void Factory::SetUpPlyr::SetUpPlayer(Point Tl, Point Br, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window, std::string filename)
 {
-	pparam.range(*Tl, *Br);
-	pparam.hp = hp;
-	pparam.ad = ad;
-	pparam.window = window;
-	pparam.speed = spd;
+	Player_Parameters.range(Tl, Br);
+	Player_Parameters.hp = hp;
+	Player_Parameters.ad = ad;
+	Player_Parameters.window = window;
+	Player_Parameters.speed = spd;
 	if (filename != "")
 	{
-		pparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		Player_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
-void Factory::SetUpPlyr::SetUpPlayer(AABB* range, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window, std::string filename)
+void Factory::SetUpPlyr::SetUpPlayer(AABB range, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window, std::string filename)
 {
-	pparam.range = *range;
-	pparam.hp = hp;
-	pparam.ad = ad;
-	pparam.window = window;
-	pparam.speed = spd;
+	Player_Parameters.range = range;
+	Player_Parameters.hp = hp;
+	Player_Parameters.ad = ad;
+	Player_Parameters.window = window;
+	Player_Parameters.speed = spd;
 	if (filename != "")
 	{
-		pparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		Player_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
 void Factory::SetUpStatic::SetUpStaticObject(double tlx, double tly, double brx, double bry, std::shared_ptr<sf::RenderWindow> window, std::string filename)
 {
-	sparam.range(tlx, tly, brx, bry);
-	sparam.window = window;
+	StaticObject_Parameters.range(tlx, tly, brx, bry);
+	StaticObject_Parameters.window = window;
 	if (filename != "")
 	{
-		sparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		StaticObject_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
-void Factory::SetUpStatic::SetUpStaticObject(Point* Tl, Point* Br, std::shared_ptr<sf::RenderWindow> window, std::string filename)
+void Factory::SetUpStatic::SetUpStaticObject(Point Tl, Point Br, std::shared_ptr<sf::RenderWindow> window, std::string filename)
 {
-	sparam.range(*Tl, *Br);
-	sparam.window = window;
+	StaticObject_Parameters.range(Tl, Br);
+	StaticObject_Parameters.window = window;
 	if (filename != "")
 	{
-		sparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		StaticObject_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
-void Factory::SetUpStatic::SetUpStaticObject(AABB* range, std::shared_ptr<sf::RenderWindow> window, std::string filename)
+void Factory::SetUpStatic::SetUpStaticObject(AABB range, std::shared_ptr<sf::RenderWindow> window, std::string filename)
 {
-	sparam.range = *range;
-	sparam.window = window;
+	StaticObject_Parameters.range = range;
+	StaticObject_Parameters.window = window;
 	if (filename != "")
 	{
-		sparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		StaticObject_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
 void Factory::SetUpItm::SetUpItem(double tlx, double tly, double brx, double bry, std::shared_ptr<sf::RenderWindow> window, std::string filename)
 {
-	iparam.range(tlx, tly, brx, bry);
-	iparam.window = window;
+	Item_Parameters.range(tlx, tly, brx, bry);
+	Item_Parameters.window = window;
 	if (filename != "")
 	{
-		iparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		Item_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
-void Factory::SetUpItm::SetUpItem(Point* Tl, Point* Br, std::shared_ptr<sf::RenderWindow> window, std::string filename)
+void Factory::SetUpItm::SetUpItem(Point Tl, Point Br, std::shared_ptr<sf::RenderWindow> window, std::string filename)
 {
-	iparam.range(*Tl, *Br);
-	iparam.window = window;
+	Item_Parameters.range(Tl, Br);
+	Item_Parameters.window = window;
 	if (filename != "")
 	{
-		iparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		Item_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
-void Factory::SetUpItm::SetUpItem(AABB* range, std::shared_ptr<sf::RenderWindow> window, std::string filename)
+void Factory::SetUpItm::SetUpItem(AABB range, std::shared_ptr<sf::RenderWindow> window, std::string filename)
 {
-	iparam.range = *range;
-	iparam.window = window;
+	Item_Parameters.range = range;
+	Item_Parameters.window = window;
 	if (filename != "")
 	{
-		iparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		Item_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
-void Factory::SetUpsk::SetUpSkill(double tlx, double tly, double brx, double bry, std::shared_ptr<sf::RenderWindow> window, std::string filename, std::shared_ptr<Object> o)
+void Factory::SetUpsk::SetUpSkill(double Point_of_creation_x_coordinate, double Point_of_creation_y_coordinate, std::shared_ptr<sf::RenderWindow> window, std::string filename, std::shared_ptr<Object> o, short direction)
 {
-	skparam.range(tlx, tly, brx, bry);
-	skparam.window = window;
-	skparam.ownr = o;
+	Skill_Parameters.Point_of_creation(Point_of_creation_x_coordinate, Point_of_creation_y_coordinate);
+	Skill_Parameters.window = window;
+	Skill_Parameters.ownr = o;
+	Skill_Parameters.direction = direction;
 	if (filename != "")
 	{
-		skparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		Skill_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
-void Factory::SetUpsk::SetUpSkill(Point* Tl, Point* Br, std::shared_ptr<sf::RenderWindow> window, std::string filename, std::shared_ptr<Object> o)
+void Factory::SetUpsk::SetUpSkill(Point Point_of_creation, std::shared_ptr<sf::RenderWindow> window, std::string filename, std::shared_ptr<Object> o, short direction)
 {
-	skparam.range(*Tl, *Br);
-	skparam.window = window;
-	skparam.ownr = o;
+	Skill_Parameters.Point_of_creation = Point_of_creation;
+	Skill_Parameters.window = window;
+	Skill_Parameters.ownr = o;
+	Skill_Parameters.direction = direction;
 	if (filename != "")
 	{
-		skparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+		Skill_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
 	}
 }
 
-void Factory::SetUpsk::SetUpSkill(AABB* range, std::shared_ptr<sf::RenderWindow> window, std::string filename, std::shared_ptr<Object> o)
-{
-	skparam.range = *range;
-	skparam.window = window;
-	skparam.ownr = o;
-	if (filename != "")
-	{
-		skparam.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
-	}
-}
+//void Factory::SetUpsk::SetUpSkill(AABB* range, std::shared_ptr<sf::RenderWindow> window, std::string filename, std::shared_ptr<Object> o, short direction)
+//{
+//	Skill_Parameters.range = *range;
+//	Skill_Parameters.window = window;
+//	Skill_Parameters.ownr = o;
+//	Skill_Parameters.direction = direction;
+//	if (filename != "")
+//	{
+//		Skill_Parameters.texture = std::make_shared<sf::Texture>(*GameAssets->getTexture(filename));
+//	}
+//}

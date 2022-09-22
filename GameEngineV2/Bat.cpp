@@ -21,11 +21,11 @@ void Bat::Controls()
 				Accelerate(0, 10);
 			}
 			f = rand() % 2;
-			if (ohight - space.getCenter().GetY() <= 50 && ohight - space.getCenter().GetY() >= -50)
+			if (ohight - space.getCenter()->GetY() <= 50 && ohight - space.getCenter()->GetY() >= -50)
 				g = rand() % 2;
-			else if (ohight - space.getCenter().GetY() > 50)
+			else if (ohight - space.getCenter()->GetY() > 50)
 				g = 0;
-			else if (ohight - space.getCenter().GetY() < -50)
+			else if (ohight - space.getCenter()->GetY() < -50)
 				g = 1;
 			if (f == 0)
 			{
@@ -57,20 +57,20 @@ void Bat::Controls()
 			if (attTimer.IsTimeUp())
 			{
 				attTimer.resetTimer();
-				if (focus->getCenter().GetX() - space.getCenter().GetX() < 100 && focus->getCenter().GetX() - space.getCenter().GetX() > -100)
+				if (focus->getCenter()->GetX() - space.getCenter()->GetX() < 100 && focus->getCenter()->GetX() - space.getCenter()->GetX() > -100)
 				{
-					if (focus->getCenter().GetY() > space.getCenter().GetY())
+					if (focus->getCenter()->GetY() > space.getCenter()->GetY())
 						Accelerate(0, 10);
 				}
 
 			}
 			int g = 0, f = 0;
 			f = rand() % 2;
-			if (ohight - space.getCenter().GetY() <= 50 && ohight - space.getCenter().GetY() >= -50)
+			if (ohight - space.getCenter()->GetY() <= 50 && ohight - space.getCenter()->GetY() >= -50)
 				g = rand() % 2;
-			else if (ohight - space.getCenter().GetY() > 50)
+			else if (ohight - space.getCenter()->GetY() > 50)
 				g = 0;
-			else if (ohight - space.getCenter().GetY() < -50)
+			else if (ohight - space.getCenter()->GetY() < -50)
 				g = 1;
 			if (f == 0)
 			{
@@ -122,7 +122,7 @@ void Bat::intersection(Object* obj)
 				//short g = rand() % 6;
 				if (tpl->ps.moving_state == dashing_left || tpl->ps.moving_state == dashing_right) {
 					AABB s(space.GetBR().GetX() - 50, space.GetBR().GetY() - 50, space.GetBR().GetX(), space.GetBR().GetY());
-					Factory::SetUpItm::SetUpItem(&s, mdisp->rewin(), "HealthPotion.png");
+					Factory::SetUpItm::SetUpItem(s , mdisp->rewin(), "HealthPotion.png");
 					Factory::CreateItem();
 				}
 			}

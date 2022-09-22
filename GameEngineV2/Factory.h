@@ -22,24 +22,16 @@ struct MonsterParameters
 {
 	AABB range;
 	std::shared_ptr<sf::RenderWindow> window;
+	std::shared_ptr<sf::Texture> texture;
 	double hp;
 	double mhp;
 	double ad;
-	double speed;
-};
-
-
-struct YetiParameters
-{
-	std::shared_ptr<sf::Texture> texture;
 	double speed = 1;
 };
 
 struct BatParameters
 {
 	double optimalhight;
-	std::shared_ptr<sf::Texture> texture;
-	double speed = 1;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -78,10 +70,11 @@ struct StaticParameters
 ////////////////////////////////////////////////////////////////////////////////////////
 struct SkillParameters
 {
-	AABB range;
+	Point Point_of_creation;
 	std::shared_ptr<sf::RenderWindow> window;
 	std::shared_ptr<sf::Texture> texture;
 	std::shared_ptr<Object> ownr;
+	short direction;
 };
 
 
@@ -101,17 +94,16 @@ struct ItemParameters
 class Factory
 {
 private:
-	static std::vector<std::shared_ptr<Object>> list;
-	static MonsterParameters mparam;
-	static YetiParameters yetiparam;
-	static PlayerParameters pparam;
-	static StaticParameters sparam;
-	static ItemParameters iparam;
-	static SkillParameters skparam;
-	static BatParameters btparam;
+	static std::vector<std::shared_ptr<Object>> Object_List;
+	static MonsterParameters Monster_Parameters;
+	static PlayerParameters Player_Parameters;
+	static StaticParameters StaticObject_Parameters;
+	static ItemParameters Item_Parameters;
+	static SkillParameters Skill_Parameters;
+	static BatParameters Bat_Parameters;
 public:
-	static std::vector<std::shared_ptr<Object>>* callobjectList();
-	static void destorylist();
+	static std::vector<std::shared_ptr<Object>>* callObjectList();
+	static void destoryList();
 	static void destoryObject(int i);
 	////////////////////////////////////////////////////////////////////////////////////////
 	//Monster Creater 			
@@ -132,7 +124,7 @@ public:
 	//
 	//\brief   Creates an objects using parameters defined in soparam
 	////////////////////////////////////////////////////////////////////////////////////////
-	static std::shared_ptr<StaticObject> CreatestaticObject();
+	static std::shared_ptr<StaticObject> CreateStaticObject();
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	//Static object Creater 			
@@ -176,33 +168,33 @@ public:
 	union SetUpMstr
 	{
 		static void SetUpMonster(double tlx = 0, double tly = 0, double brx = 0, double bry = 0, double hp = 0, double ad = 0, double spd = 5, std::shared_ptr<sf::RenderWindow> window = nullptr);
-		static void SetUpMonster(Point* Tl = nullptr, Point* Br = nullptr, double hp = 0, double ad = 0, double spd = 5, std::shared_ptr<sf::RenderWindow> window = nullptr);
-		static void SetUpMonster(AABB* range = nullptr, double hp = 0, double ad = 0, double spd = 5, std::shared_ptr<sf::RenderWindow> window = nullptr);
+		static void SetUpMonster(Point Tl, Point Br, double hp = 0, double ad = 0, double spd = 5, std::shared_ptr<sf::RenderWindow> window = nullptr);
+		static void SetUpMonster(AABB range, double hp = 0, double ad = 0, double spd = 5, std::shared_ptr<sf::RenderWindow> window = nullptr);
 		static void SetUpYeti(double spd, std::string filename = "");
 		static void SetUpBat(double optimalhight, double spd, std::string filename = "");
 	};
 	union SetUpPlyr
 	{
 		static void SetUpPlayer(double tlx = 0, double tly = 0, double brx = 0, double bry = 0, double hp = 0, double ad = 0, double spd = 5, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
-		static void SetUpPlayer(Point* Tl = nullptr, Point* Br = nullptr, double hp = 0, double ad = 0, double spd = 5, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
-		static void SetUpPlayer(AABB* range = nullptr, double hp = 0, double ad = 0, double spd = 5, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
+		static void SetUpPlayer(Point Tl, Point Br, double hp = 0, double ad = 0, double spd = 5, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
+		static void SetUpPlayer(AABB range, double hp = 0, double ad = 0, double spd = 5, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
 	};
 	union SetUpStatic
 	{
 		static void SetUpStaticObject(double tlx = 0, double tly = 0, double brx = 0, double bry = 0, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
-		static void SetUpStaticObject(Point* Tl = nullptr, Point* Br = nullptr, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
-		static void SetUpStaticObject(AABB* range = nullptr, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
+		static void SetUpStaticObject(Point Tl, Point Br, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
+		static void SetUpStaticObject(AABB range, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
 	};
 	union SetUpItm
 	{
 		static void SetUpItem(double tlx = 0, double tly = 0, double brx = 0, double bry = 0, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
-		static void SetUpItem(Point* Tl = nullptr, Point* Br = nullptr, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
-		static void SetUpItem(AABB* range = nullptr, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
+		static void SetUpItem(Point Tl, Point Br, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
+		static void SetUpItem(AABB range, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "");
 	};
 	union SetUpsk
 	{
-		static void SetUpSkill(double tlx = 0, double tly = 0, double brx = 0, double bry = 0, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "", std::shared_ptr<Object> o = nullptr);
-		static void SetUpSkill(Point* Tl = nullptr, Point* Br = nullptr, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "", std::shared_ptr<Object> o = nullptr);
-		static void SetUpSkill(AABB* range = nullptr, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "", std::shared_ptr<Object> o = nullptr);
+		static void SetUpSkill(double Point_of_creation_x_coordinate = 0, double Point_of_creation_y_coordinate = 0, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "", std::shared_ptr<Object> o = nullptr, short direction = left);
+		static void SetUpSkill(Point Point_of_creation, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "", std::shared_ptr<Object> o = nullptr, short direction = left);
+		//static void SetUpSkill(AABB* range = nullptr, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "", std::shared_ptr<Object> o = nullptr, short direction = left);
 	};
 };

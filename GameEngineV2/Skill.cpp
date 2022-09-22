@@ -11,12 +11,12 @@ void Skill::Move(double xspd, double yspd)
 	space.SetBR(double(space.GetBR().GetX() + xspd), double(space.GetBR().GetY() + yspd));
 }
 
-Skill::Skill(AABB range, double cooldown, std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<sf::Texture> txt, std::shared_ptr<Object> o)
+Skill::Skill(Point Point_of_creation, double cooldown, std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<sf::Texture> txt, short direction , std::shared_ptr<Object> o)
 {
-	sf::Vector2f cor(range.GetTL().GetX(), range.GetTL().GetY());
+	sf::Vector2f cor(Point_of_creation.GetX(), Point_of_creation.GetY());
 	if (txt == nullptr)
 	{
-		sf::Vector2f siz(range.GetWid(), range.GetLen());
+		sf::Vector2f siz(30, 30);
 		mdisp = std::make_shared<Graphics>(cor, siz, window);
 	}
 	else
@@ -24,7 +24,9 @@ Skill::Skill(AABB range, double cooldown, std::shared_ptr<sf::RenderWindow> wind
 		AABB* t = new AABB(0, 0, 33, 50);
 		mdisp = std::make_shared<Graphics>(cor, txt, window, t);
 	}
-	space = range;
+	if (direction == right)
+		mdisp->FlipHorizontali();
+	space(Point_of_creation.GetX(), Point_of_creation.GetY(), Point_of_creation.GetX() + 30, Point_of_creation.GetY() + 30);
 	refreshLastSpace();
 	owner = o;
 	skilltype = melee;
@@ -148,8 +150,14 @@ std::shared_ptr<Object> Skill::returnowner()
 	return owner;
 }
 
+void Skill::action()
+{
+	isTimeToDie();
+}
+
 Skill::~Skill()
 {
 	cd.~Cooldown();
 	timetolive.~Cooldown();
+	mdisp = nullptr;
 }

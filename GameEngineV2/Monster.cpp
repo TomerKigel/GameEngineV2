@@ -111,7 +111,7 @@ void Monster::Controls()
 		else
 		{
 			g = rand() % 19;
-			if (focus->getCenter().GetX() < getAABB()->getCenter().GetX())
+			if (focus->getCenter()->GetX() < getAABB()->getCenter()->GetX())
 			{
 				if (g < 17) {
 					if (mnstrstate.looking_state == lookingright) {
@@ -145,7 +145,7 @@ void Monster::Controls()
 					Accelerate(-3, 0);
 				}
 			}
-			if (focus->getCenter().GetY() < getCenter().GetY() && jcd.IsTimeUp())
+			if (focus->getCenter()->GetY() < getCenter()->GetY() && jcd.IsTimeUp())
 			{
 				jcd.resetTimer();
 				Accelerate(0, -10);
@@ -163,8 +163,8 @@ void Monster::action()
 
 void Monster::calcDisFromEdge(StaticObject* obj)
 {
-	double ti = getCenter().GetX() - obj->getAABB()->GetTL().GetX();
-	double pi = obj->getAABB()->GetBR().GetX() - getCenter().GetX();
+	double ti = getCenter()->GetX() - obj->getAABB()->GetTL().GetX();
+	double pi = obj->getAABB()->GetBR().GetX() - getCenter()->GetX();
 	disfedge.SetX(ti);
 	disfedge.SetY(pi);
 }
@@ -208,7 +208,7 @@ bool Monster::InteractWith(Interactable* obj, short type)
 				//short g = rand() % 6;
 				if (tpl->ps.moving_state == dashing_left || tpl->ps.moving_state == dashing_right) {
 					AABB s(getAABB()->GetBR().GetX() - 50, getAABB()->GetBR().GetY() - 50, getAABB()->GetBR().GetX(), getAABB()->GetBR().GetY());
-					Factory::SetUpItm::SetUpItem(&s, mdisp->rewin(), "HealthPotion.png");
+					Factory::SetUpItm::SetUpItem(s, mdisp->rewin(), "HealthPotion.png");
 					Factory::CreateItem();
 				}
 			}

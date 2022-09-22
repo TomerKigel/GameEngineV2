@@ -50,7 +50,7 @@ void Yeti::Controls()
 		else
 		{
 			g = rand() % 19;
-			if (focus->getCenter().GetX() < space.getCenter().GetX())
+			if (focus->getCenter()->GetX() < space.getCenter()->GetX())
 			{
 				if (g < 17) {
 					if (mnstrstate.looking_state == lookingright) {
@@ -84,12 +84,12 @@ void Yeti::Controls()
 					Accelerate(-3, 0);
 				}
 			}
-			if (focus->getCenter().GetY() < space.getCenter().GetY() && jcd.IsTimeUp())
+			if (focus->getCenter()->GetY() < space.getCenter()->GetY() && jcd.IsTimeUp())
 			{
 				jcd.resetTimer();
 				Accelerate(0, -10);
 			}
-			if (focus->getCenter().GetX() - space.getCenter().GetX() < 30 && focus->getCenter().GetX() - space.getCenter().GetX() > -30)
+			if (focus->getCenter()->GetX() - space.getCenter()->GetX() < 30 && focus->getCenter()->GetX() - space.getCenter()->GetX() > -30)
 			{
 				Attack();
 			}
@@ -120,7 +120,7 @@ void Yeti::intersection(Object* obj)
 				if (tpl->ps.moving_state == dashing_left || tpl->ps.moving_state == dashing_right) {
 					AABB s(space.GetBR().GetX() - 50, space.GetBR().GetY() - 50, space.GetBR().GetX(), space.GetBR().GetY());
 					const char* name = "HealthPotion.png";
-					Factory::SetUpItm::SetUpItem(&s, mdisp->rewin(), name);
+					Factory::SetUpItm::SetUpItem(s, mdisp->rewin(), name);
 					Factory::CreateItem();
 				}
 			}
@@ -151,7 +151,8 @@ short Yeti::reMType()
 void Yeti::Attack()
 {
 	if (attTimer.IsTimeUp()) {
-		Factory::SetUpsk::SetUpSkill(&space, mdisp->rewin(), "swash.png", shared_from_this());
+		Point p = *space.getCenter().get();
+		Factory::SetUpsk::SetUpSkill(p, mdisp->rewin(), "swash.png", shared_from_this(), mnstrstate.looking_state);
 		Factory::CreateSkill();
 		attTimer.resetTimer();
 	}

@@ -11,7 +11,7 @@ enum collision {
 };
 
 enum Looking {
-	lookingleft,
+	lookingleft = 3,
 	lookingright
 };
 

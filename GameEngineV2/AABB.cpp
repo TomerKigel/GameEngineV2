@@ -18,11 +18,11 @@ AABB::AABB(Point tl, Point br)
 
 }
 
-Point AABB::getCenter()
+std::shared_ptr<Point> AABB::getCenter()
 {
-	Point Center;
-	Center.SetX((TL.GetX() + BR.GetX()) / 2);
-	Center.SetY((TL.GetY() + BR.GetY()) / 2);
+	std::shared_ptr<Point> Center = std::make_shared<Point>();
+	Center->SetX((TL.GetX() + BR.GetX()) / 2);
+	Center->SetY((TL.GetY() + BR.GetY()) / 2);
 	return Center;
 }
 
@@ -148,13 +148,13 @@ short AABB::WIRTTO(AABB t) //where in relation to this object
 	if (pow(tl, 2) >= pow(tw, 2)) {
 		deg = 90 - (atan(tw / tl) * 180.0 / PI);
 
-		tl = getCenter().GetX() - t.getCenter().GetX();
-		tw = getCenter().GetY() - t.getCenter().GetY();
+		tl = getCenter()->GetX() - t.getCenter()->GetX();
+		tw = getCenter()->GetY() - t.getCenter()->GetY();
 
 		if (tl >= 0 && tw <= 0)
 		{
-			double tm = t.getCenter().GetY() - GetBR().GetY();
-			double jm = GetTL().GetX() - t.getCenter().GetX();
+			double tm = t.getCenter()->GetY() - GetBR().GetY();
+			double jm = GetTL().GetX() - t.getCenter()->GetX();
 			if (jm <= 0)
 				return top;
 			if (tm <= 0)
@@ -168,8 +168,8 @@ short AABB::WIRTTO(AABB t) //where in relation to this object
 		}
 		else if (tl >= 0 && tw >= 0)
 		{
-			double tm = GetTL().GetY() - t.getCenter().GetY();
-			double jm = GetTL().GetX() - t.getCenter().GetX();
+			double tm = GetTL().GetY() - t.getCenter()->GetY();
+			double jm = GetTL().GetX() - t.getCenter()->GetX();
 			if (jm <= 0)
 				return bottom;
 			if (tm <= 0)
@@ -183,8 +183,8 @@ short AABB::WIRTTO(AABB t) //where in relation to this object
 		}
 		else if (tl <= 0 && tw <= 0)
 		{
-			double tm = t.getCenter().GetY() - GetBR().GetY();
-			double jm = t.getCenter().GetX() - GetBR().GetX();
+			double tm = t.getCenter()->GetY() - GetBR().GetY();
+			double jm = t.getCenter()->GetX() - GetBR().GetX();
 			if (jm <= 0)
 				return top;
 			if (tm <= 0)
@@ -197,8 +197,8 @@ short AABB::WIRTTO(AABB t) //where in relation to this object
 		}
 		else
 		{
-			double tm = GetTL().GetY() - t.getCenter().GetY();
-			double jm = t.getCenter().GetX() - GetBR().GetX();
+			double tm = GetTL().GetY() - t.getCenter()->GetY();
+			double jm = t.getCenter()->GetX() - GetBR().GetX();
 			if (jm <= 0)
 				return bottom;
 			if (tm <= 0)
@@ -215,12 +215,12 @@ short AABB::WIRTTO(AABB t) //where in relation to this object
 	else if (pow(tl, 2) < pow(tw, 2))
 	{
 		deg = atan(tw / tl) * 180.0 / PI;
-		tl = getCenter().GetX() - t.getCenter().GetX();
-		tw = getCenter().GetY() - t.getCenter().GetY();
+		tl = getCenter()->GetX() - t.getCenter()->GetX();
+		tw = getCenter()->GetY() - t.getCenter()->GetY();
 		if (tl >= 0 && tw <= 0)
 		{
-			double tm = t.getCenter().GetY() - GetBR().GetY();
-			double jm = GetTL().GetX() - t.getCenter().GetX();
+			double tm = t.getCenter()->GetY() - GetBR().GetY();
+			double jm = GetTL().GetX() - t.getCenter()->GetX();
 			if (jm <= 0)
 				return top;
 			if (tm <= 0)
@@ -234,8 +234,8 @@ short AABB::WIRTTO(AABB t) //where in relation to this object
 		}
 		else if (tl >= 0 && tw >= 0)
 		{
-			double tm = GetTL().GetY() - t.getCenter().GetY();
-			double jm = GetTL().GetX() - t.getCenter().GetX();
+			double tm = GetTL().GetY() - t.getCenter()->GetY();
+			double jm = GetTL().GetX() - t.getCenter()->GetX();
 			if (jm <= 0)
 				return bottom;
 			if (tm <= 0)
@@ -249,8 +249,8 @@ short AABB::WIRTTO(AABB t) //where in relation to this object
 		}
 		else if (tl <= 0 && tw <= 0)
 		{
-			double tm = t.getCenter().GetY() - GetBR().GetY();
-			double jm = t.getCenter().GetX() - GetBR().GetX();
+			double tm = t.getCenter()->GetY() - GetBR().GetY();
+			double jm = t.getCenter()->GetX() - GetBR().GetX();
 			if (jm <= 0)
 				return top;
 			if (tm <= 0)
@@ -263,8 +263,8 @@ short AABB::WIRTTO(AABB t) //where in relation to this object
 		}
 		else
 		{
-			double tm = GetTL().GetY() - t.getCenter().GetY();
-			double jm = t.getCenter().GetX() - GetBR().GetX();
+			double tm = GetTL().GetY() - t.getCenter()->GetY();
+			double jm = t.getCenter()->GetX() - GetBR().GetX();
 			if (jm <= 0)
 				return bottom;
 			if (tm <= 0)
@@ -289,27 +289,27 @@ double AABB::Overlap(AABB t, short direction)
 	double overlap = 0;
 	double a = GetWid() / 2;
 	double b = t.GetWid() / 2;
-	double c = t.getCenter().GetY();
-	double d = getCenter().GetY();
+	double c = t.getCenter()->GetY();
+	double d = getCenter()->GetY();
 	switch (direction)
 	{
 	case top:
-		overlap = (GetWid() / 2) + (t.GetWid() / 2) - (t.getCenter().GetY() - getCenter().GetY());
+		overlap = (GetWid() / 2) + (t.GetWid() / 2) - (t.getCenter()->GetY() - getCenter()->GetY());
 		if (overlap > 0)
 			return overlap;
 		return 0;
 	case bottom:
-		overlap = (GetWid() / 2) + (t.GetWid() / 2) - (getCenter().GetY() - t.getCenter().GetY());
+		overlap = (GetWid() / 2) + (t.GetWid() / 2) - (getCenter()->GetY() - t.getCenter()->GetY());
 		if (overlap > 0)
 			return overlap;
 		return 0;
 	case left:
-		overlap = (GetLen() / 2) + (t.GetLen() / 2) - (t.getCenter().GetX() - getCenter().GetX());
+		overlap = (GetLen() / 2) + (t.GetLen() / 2) - (t.getCenter()->GetX() - getCenter()->GetX());
 		if (overlap > 0)
 			return overlap;
 		return 0;
 	case right:
-		overlap = (GetLen() / 2) + (t.GetLen() / 2) - (getCenter().GetX() - t.getCenter().GetX());
+		overlap = (GetLen() / 2) + (t.GetLen() / 2) - (getCenter()->GetX() - t.getCenter()->GetX());
 		if (overlap > 0)
 			return overlap;
 		return 0;

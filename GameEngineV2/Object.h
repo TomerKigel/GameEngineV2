@@ -33,7 +33,7 @@ public:
 	//
 	//\brief   returns the AABB of the object										
 	////////////////////////////////////////////////////////////////////////////////////////
-	virtual Point getCenter()
+	virtual std::shared_ptr<Point> getCenter()
 	{
 		return space.getCenter();
 	}
