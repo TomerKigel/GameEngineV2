@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Factory">
+      <UniqueIdentifier>{f45c1c3c-06c7-4384-92f0-c408ab610548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time Managment">
+      <UniqueIdentifier>{6f87889c-b5a2-4b15-a40e-622abba7cda0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Managment">
+      <UniqueIdentifier>{42c68eb1-1950-49a1-8172-497285e0b113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{bb5bcee3-bf27-405f-ac8c-4ed3763f44ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{e535c22c-3733-44b8-a3bf-bff8f4adb723}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Interfaces">
+      <UniqueIdentifier>{11d56db3-79fb-4e65-b0c1-e9e48f29f49b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Types">
+      <UniqueIdentifier>{d5fa7657-1d29-4783-b0c8-98488e278af8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object Properties">
+      <UniqueIdentifier>{904a0054-e914-4a61-be85-770b0b4aa245}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Engine">
+      <UniqueIdentifier>{98d5468f-e1c2-4f49-8195-a090f0765ed4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Types\Player">
+      <UniqueIdentifier>{ccf39263-7a14-4db4-8d42-3ee4eac58c8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Types\Monster">
+      <UniqueIdentifier>{981939d9-ffc8-4207-b6d5-f4c28eaab5e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Types\Item">
+      <UniqueIdentifier>{dc364d6f-8d95-45ce-ba96-c1d904460cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quadtree">
+      <UniqueIdentifier>{946863c0-7b57-4584-98ac-d505c5fc8adb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Types\Skill">
+      <UniqueIdentifier>{a92626de-17bb-4617-83cd-037e8cf5fe88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics managment">
+      <UniqueIdentifier>{b8c1f023-1834-4b05-a6d2-a76ad2fb83b9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="H:\C stuff\LastAttempt\LastAttempt\Intersections.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APH.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp">
+      <Filter>Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Game Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Graphics managment</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Graphics managment</Filter>
+    </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>Object Properties</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>Object Properties</Filter>
+    </ClCompile>
+    <ClCompile Include="Living.cpp">
+      <Filter>Objects\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticObject.cpp">
+      <Filter>Objects\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Movable.cpp">
+      <Filter>Objects\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Objects\Types\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>Objects\Types\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Yeti.cpp">
+      <Filter>Objects\Types\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Objects\Types\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Objects\Types\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Objects\Types\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Quadtree</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Sound Managment</Filter>
+    </ClCompile>
+    <ClCompile Include="Cooldown.cpp">
+      <Filter>Time Managment</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Mat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine.h">
+      <Filter>Game Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Graphics managment</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Graphics managment</Filter>
+    </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>Object Properties</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Object Properties</Filter>
+    </ClInclude>
+    <ClInclude Include="Movable.h">
+      <Filter>Objects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Living.h">
+      <Filter>Objects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Objects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticObject.h">
+      <Filter>Objects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Objects\Types\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>Objects\Types\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Objects\Types\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MState.h">
+      <Filter>Objects\Types\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Yeti.h">
+      <Filter>Objects\Types\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Objects\Types\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PState.h">
+      <Filter>Objects\Types\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Objects\Types\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Quadtree</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Sound Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="Cooldown.h">
+      <Filter>Time Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="Interactable.h">
+      <Filter>Objects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Objects\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Actionable.h">
+      <Filter>Objects\Interfaces</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

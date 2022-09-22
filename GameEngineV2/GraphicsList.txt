@@ -1,0 +1,8 @@
+Asset:bnn.png
+Asset:HealthPotion.png
+Asset:yeti.png
+Asset:Background.png
+Asset:swash.png
+Asset:bat.png
+Asset:GameOver.png
+Asset:steel.png
