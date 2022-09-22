@@ -7,30 +7,48 @@ GameEngine::GameEngine(char* filename)
 {
 	window = std::make_shared<sf::RenderWindow>();
 	window->create(sf::VideoMode(1920, 1080), "DashNBlood", 3/*sf::Style::Resize*/);
+	LoadingScreen();
+	std::shared_ptr<Textures> GameAssets = Factory::CreatGameAssets();
+	Graphicsfilestream("GraphicsList.txt");
+
+	sound_handle = Factory::CreateSound();
+	Musicfilestream("MusicList.txt");
+	SoundSetup();
+
+	UtilityAssetSetUp();
+	isPaused = false;
+	ElapsedTime = 0;
+}
+
+
+
+void GameEngine::UtilityAssetSetUp()
+{
+	menu_texture = std::make_shared<sf::Texture>();
+	if (!menu_texture->loadFromFile("ast.png"))
+		throw("ast error");
+	gameover_texture = std::make_shared<sf::Texture>();
+	if (!gameover_texture->loadFromFile("GameOver.png"))
+		throw("GameOver error");
+	menu = std::make_shared<Graphics>(sf::Vector2f(0, 0), menu_texture, window);
+	gameover_menu = std::make_shared<Graphics>(sf::Vector2f(0, 0), gameover_texture, window);
+
+}
+void GameEngine::LoadingScreen()
+{
 	std::shared_ptr<sf::Texture> loadingtxt = std::make_shared<sf::Texture>();
 	if (!loadingtxt->loadFromFile("loading.png"))
 		throw("loading");
 	Graphics loading(sf::Vector2f(0, 0), loadingtxt, window);
 	loading.Draw();
 	window->display();
-	std::shared_ptr<Textures> GameAssets = Factory::CreatGameAssets();
-	s = Factory::CreateSound();
-	Musicfilestream("MusicList.txt");
-	Graphicsfilestream("GraphicsList.txt");
-	theme.setBuffer(s->reSound()->at(0).sbuf);
+}
+
+void GameEngine::SoundSetup()
+{
+	theme.setBuffer(sound_handle->reSound()->at(0).sbuf);
 	theme.setLoop(true);
 	theme.play();
-	me = std::make_shared<sf::Texture>();
-	if (!me->loadFromFile("ast.png"))
-		throw("ast error");
-	gome = std::make_shared<sf::Texture>();
-	if (!gome->loadFromFile("GameOver.png"))
-		throw("GameOver error");
-	menu = std::make_shared<Graphics>(sf::Vector2f(0, 0), me, window);
-	gomenu = std::make_shared<Graphics>(sf::Vector2f(0, 0), gome, window);
-
-	isPaused = false;
-	ElapsedTime = 0;
 }
 
 void GameEngine::GameLoop()
@@ -150,7 +168,7 @@ void GameEngine::Musicfilestream(std::string filename)
 		{
 			size_t end = buffer.find(".wav", loc) + 4;
 			std::string fntforward;
-			s->SetMusicBuffer(buffer.substr(loc + 6, end - (loc + 6)));
+			sound_handle->SetMusicBuffer(buffer.substr(loc + 6, end - (loc + 6)));
 			std::cout << buffer.substr(loc + 6, end - (loc + 6)) << std::endl;
 			loc += 1;
 		}
@@ -163,7 +181,7 @@ void GameEngine::Musicfilestream(std::string filename)
 		{
 			size_t end = buffer.find(".wav", loc) + 4;
 			std::string fntforward;
-			s->SetSFXBuffer(buffer.substr(loc + 4, end - (loc + 4)));
+			sound_handle->SetSFXBuffer(buffer.substr(loc + 4, end - (loc + 4)));
 			std::cout << buffer.substr(loc + 4, end - (loc + 4)) << std::endl;
 			loc += 1;
 		}
@@ -233,8 +251,8 @@ void GameEngine::EventLoop()
 	}
 	if (GameOver == true)
 	{
-		gomenu->setView(window->getView());
-		gomenu->Draw();
+		gameover_menu->setView(window->getView());
+		gameover_menu->Draw();
 		theme.pause();
 		sf::Vector2i mpos = sf::Mouse::getPosition();
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && mpos.x < window->getPosition().x + 1080 && mpos.x > window->getPosition().x + 830 && mpos.y < window->getPosition().y + 560 && mpos.y > window->getPosition().y + 450) {

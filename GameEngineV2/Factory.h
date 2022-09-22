@@ -24,8 +24,8 @@ struct MonsterParameters
 	std::shared_ptr<sf::RenderWindow> window;
 	std::shared_ptr<sf::Texture> texture;
 	double hp;
-	double mhp;
-	double ad;
+	double max_hp;
+	double attack_damage;
 	double speed = 1;
 };
 
@@ -45,8 +45,8 @@ struct PlayerParameters
 	std::shared_ptr<sf::RenderWindow> window;
 	std::shared_ptr<sf::Texture> texture;
 	double hp;
-	double mhp;
-	double ad;
+	double max_hp;
+	double attack_damage;
 	double speed;
 };
 
@@ -195,6 +195,5 @@ public:
 	{
 		static void SetUpSkill(double Point_of_creation_x_coordinate = 0, double Point_of_creation_y_coordinate = 0, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "", std::shared_ptr<Object> o = nullptr, short direction = left);
 		static void SetUpSkill(Point Point_of_creation, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "", std::shared_ptr<Object> o = nullptr, short direction = left);
-		//static void SetUpSkill(AABB* range = nullptr, std::shared_ptr<sf::RenderWindow> window = nullptr, std::string filename = "", std::shared_ptr<Object> o = nullptr, short direction = left);
 	};
 };

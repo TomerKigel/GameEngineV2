@@ -13,12 +13,12 @@ class GameEngine
 private:
 	bool isPaused;
 	bool GameOver = false;
-	std::shared_ptr<Sound> s;
+	std::shared_ptr<Sound> sound_handle;
 	std::shared_ptr<sf::RenderWindow> window;
-	std::shared_ptr<sf::Texture> me;
+	std::shared_ptr<sf::Texture> menu_texture;
 	std::shared_ptr<Graphics> menu;
-	std::shared_ptr<sf::Texture> gome;
-	std::shared_ptr<Graphics> gomenu;
+	std::shared_ptr<sf::Texture> gameover_texture;
+	std::shared_ptr<Graphics> gameover_menu;
 	sf::Event event;
 	sf::Sound theme;
 	sf::Clock frameClock;
@@ -27,7 +27,11 @@ private:
 	void EventLoop();
 public:
 	GameEngine(char* filename = nullptr);
+	void UtilityAssetSetUp();
+	void LoadingScreen();
+	void SoundSetup();
 	void GameLoop();
+
 	void run(QuadTree* QT, std::vector<std::shared_ptr<Object>>* mst, Graphics* ls);
 	void Running(QuadTree* QT, std::vector<std::shared_ptr<Object>>* mst);
 	void Operate(std::vector<std::shared_ptr<Object>>* mst, QuadTree* QT, Graphics* ls);

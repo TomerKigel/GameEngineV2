@@ -33,17 +33,17 @@ void Factory::destoryObject(int i)
 std::shared_ptr<Monster> Factory::CreateMonster(std::string mname)
 {
 	if (mname == "Monster") {
-		std::shared_ptr<Monster> tm = std::make_shared<Monster>(Monster_Parameters.range, Monster_Parameters.hp, Monster_Parameters.ad, Monster_Parameters.speed, Monster_Parameters.window, nullptr);
+		std::shared_ptr<Monster> tm = std::make_shared<Monster>(Monster_Parameters.range, Monster_Parameters.hp, Monster_Parameters.attack_damage, Monster_Parameters.speed, Monster_Parameters.window, nullptr);
 		Object_List.push_back(tm);
 		return tm;
 	}
 	else if (mname == "Yeti") {
-		std::shared_ptr<Yeti> tm = std::make_shared<Yeti>(Monster_Parameters.speed, Monster_Parameters.range, Monster_Parameters.hp, Monster_Parameters.ad, Monster_Parameters.speed, Monster_Parameters.window, Monster_Parameters.texture);
+		std::shared_ptr<Yeti> tm = std::make_shared<Yeti>(Monster_Parameters.speed, Monster_Parameters.range, Monster_Parameters.hp, Monster_Parameters.attack_damage, Monster_Parameters.speed, Monster_Parameters.window, Monster_Parameters.texture);
 		Object_List.push_back(tm);
 		return tm;
 	}
 	else if (mname == "Bat") { 
-		std::shared_ptr<Bat> tm = std::make_shared<Bat>(Bat_Parameters.optimalhight, Monster_Parameters.speed, Monster_Parameters.range, Monster_Parameters.hp, Monster_Parameters.ad, Monster_Parameters.speed, Monster_Parameters.window, Monster_Parameters.texture);
+		std::shared_ptr<Bat> tm = std::make_shared<Bat>(Bat_Parameters.optimalhight, Monster_Parameters.speed, Monster_Parameters.range, Monster_Parameters.hp, Monster_Parameters.attack_damage, Monster_Parameters.speed, Monster_Parameters.window, Monster_Parameters.texture);
 		Object_List.push_back(tm);
 		return tm;
 	}
@@ -55,7 +55,7 @@ std::shared_ptr<Monster> Factory::CreateMonster(std::string mname)
 
 std::shared_ptr<Player> Factory::CreatePlayer()
 {
-	std::shared_ptr<Player> tpl = std::make_shared<Player>(Player_Parameters.range, Player_Parameters.hp, Player_Parameters.ad, Player_Parameters.speed, Player_Parameters.window, Player_Parameters.texture);
+	std::shared_ptr<Player> tpl = std::make_shared<Player>(Player_Parameters.range, Player_Parameters.hp, Player_Parameters.attack_damage, Player_Parameters.speed, Player_Parameters.window, Player_Parameters.texture);
 	Object_List.push_back(tpl);
 	return tpl;
 }
@@ -105,8 +105,8 @@ std::shared_ptr<Textures> Factory::CreatGameAssets()
 void Factory::SetUpMstr::SetUpMonster(double tlx, double tly, double brx, double bry, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window)
 {
 	Monster_Parameters.range(tlx, tly, brx, bry);
-	Monster_Parameters.mhp = Monster_Parameters.hp = hp;
-	Monster_Parameters.ad = ad;
+	Monster_Parameters.max_hp = Monster_Parameters.hp = hp;
+	Monster_Parameters.attack_damage = ad;
 	Monster_Parameters.window = window;
 	Monster_Parameters.speed = spd;
 }
@@ -115,7 +115,7 @@ void Factory::SetUpMstr::SetUpMonster(Point Tl, Point Br, double hp, double ad, 
 {
 	Monster_Parameters.range(Tl, Br);
 	Monster_Parameters.hp = hp;
-	Monster_Parameters.ad = ad;
+	Monster_Parameters.attack_damage = ad;
 	Monster_Parameters.window = window;
 	Monster_Parameters.speed = spd;
 }
@@ -124,7 +124,7 @@ void Factory::SetUpMstr::SetUpMonster(AABB range, double hp, double ad, double s
 {
 	Monster_Parameters.range = range;
 	Monster_Parameters.hp = hp;
-	Monster_Parameters.ad = ad;
+	Monster_Parameters.attack_damage = ad;
 	Monster_Parameters.window = window;
 	Monster_Parameters.speed = spd;
 }
@@ -151,8 +151,8 @@ void Factory::SetUpMstr::SetUpBat(double optimalhight, double spd, std::string f
 void Factory::SetUpPlyr::SetUpPlayer(double tlx, double tly, double brx, double bry, double hp, double ad, double spd, std::shared_ptr<sf::RenderWindow> window, std::string filename)
 {
 	Player_Parameters.range(tlx, tly, brx, bry);
-	Player_Parameters.mhp = Player_Parameters.hp = hp;
-	Player_Parameters.ad = ad;
+	Player_Parameters.max_hp = Player_Parameters.hp = hp;
+	Player_Parameters.attack_damage = ad;
 	Player_Parameters.window = window;
 	Player_Parameters.speed = spd;
 	if (filename != "")
@@ -165,7 +165,7 @@ void Factory::SetUpPlyr::SetUpPlayer(Point Tl, Point Br, double hp, double ad, d
 {
 	Player_Parameters.range(Tl, Br);
 	Player_Parameters.hp = hp;
-	Player_Parameters.ad = ad;
+	Player_Parameters.attack_damage = ad;
 	Player_Parameters.window = window;
 	Player_Parameters.speed = spd;
 	if (filename != "")
@@ -178,7 +178,7 @@ void Factory::SetUpPlyr::SetUpPlayer(AABB range, double hp, double ad, double sp
 {
 	Player_Parameters.range = range;
 	Player_Parameters.hp = hp;
-	Player_Parameters.ad = ad;
+	Player_Parameters.attack_damage = ad;
 	Player_Parameters.window = window;
 	Player_Parameters.speed = spd;
 	if (filename != "")
